@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dice Roller</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent; /* blends into Notion's background */
+      font-family: system-ui, sans-serif;
+      user-select: none;
+    }
+    .dice-container {
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    .dice-container:active {
+      transform: scale(0.9);
+    }
+    .dice {
+      font-size: 8rem;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .label {
+      font-size: 1.2rem;
+      color: #555;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="dice-container" onclick="rollDice()">
+    <span class="dice" id="dice">⚅</span>
+    <div class="label">Click to roll</div>
+  </div>
+
+  <script>
+    const diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+
+    function rollDice() {
+      const diceElement = document.getElementById('dice');
+      let rollCount = 0;
+      const maxRolls = 10;      // number of quick changes for animation effect
+      const interval = setInterval(() => {
+        const randomFace = diceFaces[Math.floor(Math.random() * 6)];
+        diceElement.textContent = randomFace;
+        rollCount++;
+        if (rollCount >= maxRolls) {
+          clearInterval(interval);
+          // Final random face already set by last interval tick
+        }
+      }, 70); // 70ms between face changes
+    }
+  </script>
+</body>
+</html>
